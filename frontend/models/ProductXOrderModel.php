@@ -53,7 +53,7 @@ class ProductXOrderModel extends \yii\db\ActiveRecord
      */
     public function getOrder()
     {
-        return $this->hasOne(Order::className(), ['id_order' => 'id_order']);
+        return $this->hasOne(OrderModel::className(), ['id_order' => 'id_order']);
     }
 
     /**
@@ -61,6 +61,6 @@ class ProductXOrderModel extends \yii\db\ActiveRecord
      */
     public function getProduct()
     {
-        return $this->hasOne(Product::className(), ['id_product' => 'id_product']);
+        return $this->hasOne(ProductModel::className(), ['id_product' => 'id_product']);
     }
 }
