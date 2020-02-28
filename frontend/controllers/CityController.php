@@ -2,22 +2,17 @@
 
 namespace frontend\controllers;
 
-use frontend\models\ClientModel;
-use frontend\models\ProductModel;
-use frontend\models\ProductXOrderModel;
-use frontend\services\ClientService;
-use frontend\services\OrderService;
 use Yii;
-use frontend\models\OrderModel;
+use common\models\CityModel;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * OrderController implements the CRUD actions for OrderModel model.
+ * CityController implements the CRUD actions for CityModel model.
  */
-class OrderController extends Controller
+class CityController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -35,13 +30,13 @@ class OrderController extends Controller
     }
 
     /**
-     * Lists all OrderModel models.
+     * Lists all CityModel models.
      * @return mixed
      */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => OrderModel::find(),
+            'query' => CityModel::find(),
         ]);
 
         return $this->render('index', [
@@ -50,68 +45,58 @@ class OrderController extends Controller
     }
 
     /**
-     *
-     * @param $id
-     * @return string
+     * Displays a single CityModel model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
-        $order = OrderModel::findOne($id);
-        $products = ProductXOrderModel::getProductsByOrder($id);
         return $this->render('view', [
-            'model' => $order,
-            'products' => $products
+            'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     *
-     * @param null $id_client
-     * @return string|\yii\web\Response
+     * Creates a new CityModel model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
      */
-    public function actionCreate($id_client = null)
+    public function actionCreate()
     {
-        $model = new OrderModel();
-        $productXOrder = new ProductXOrderModel();
+        $model = new CityModel();
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $productXOrder->load(Yii::$app->request->post());
-            $productXOrder->id_order = $model->id_order;
-            if ($productXOrder->save()) {
-                return $this->redirect(['view', 'id' => $model->id_order]);
-            }
+            return $this->redirect(['view', 'id' => $model->id_city]);
         }
 
         return $this->render('create', [
             'model' => $model,
-            'id_client' => $id_client,
-            'productXOrder' => $productXOrder,
         ]);
     }
 
     /**
-     * Updates an existing OrderModel model.
+     * Updates an existing CityModel model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id, $id_client = null)
+    public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $productXOrder = ProductXOrderModel::getProductsByOrder($id);
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_order]);
+            return $this->redirect(['view', 'id' => $model->id_city]);
         }
 
         return $this->render('update', [
             'model' => $model,
-            'id_client' => $id_client,
-            'productXOrder' => $productXOrder,
         ]);
     }
 
     /**
-     * Deletes an existing OrderModel model.
+     * Deletes an existing CityModel model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -125,15 +110,15 @@ class OrderController extends Controller
     }
 
     /**
-     * Finds the OrderModel model based on its primary key value.
+     * Finds the CityModel model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return OrderModel the loaded model
+     * @return CityModel the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = OrderModel::findOne($id)) !== null) {
+        if (($model = CityModel::findOne($id)) !== null) {
             return $model;
         }
 

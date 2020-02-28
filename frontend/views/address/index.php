@@ -6,15 +6,15 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Client Models';
+$this->title = 'Address Models';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="client-model-index">
+<div class="address-model-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Client Model', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Address Model', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
 
@@ -23,10 +23,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id_client',
-            'name',
-            'last_name',
             'id_address',
+            'id_client',
+            'id_city',
+            'house',
+            'flat',
+            //'comment:ntext',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

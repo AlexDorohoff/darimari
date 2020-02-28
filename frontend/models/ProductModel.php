@@ -2,7 +2,9 @@
 
 namespace frontend\models;
 
+use common\models\AddressModel;
 use Yii;
+use yii\data\ActiveDataProvider;
 
 /**
  * This is the model class for table "product".
@@ -49,8 +51,16 @@ class ProductModel extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getProductXOrders()
+    public function getProductXOrder()
     {
         return $this->hasMany(ProductXOrderModel::className(), ['id_product' => 'id_product']);
+    }
+
+    public static function getAllProducts($id){
+        $dataProvider = new ActiveDataProvider([
+            'query' => ProductModel::find()->where(['id_client' => $id])->joinWith('city'),
+        ]);
+        $adresess = $dataProvider->getModels();
+        return $adresess;
     }
 }

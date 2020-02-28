@@ -3,7 +3,7 @@
 namespace frontend\models;
 
 use Yii;
-
+use frontend\models\OrderModel;
 /**
  * This is the model class for table "client".
  *
@@ -14,8 +14,10 @@ use Yii;
  * @property string|null $city
  * @property string|null $house
  * @property int|null $flat
+ * @property int|null $id_region
+ * @property int|null $id_city
  *
- * @property Order[] $orders
+ * @property OrderModel[] $orders
  */
 class ClientModel extends \yii\db\ActiveRecord
 {
@@ -35,7 +37,7 @@ class ClientModel extends \yii\db\ActiveRecord
         return [
             [['name'], 'required'],
             [['address'], 'string'],
-            [['flat'], 'integer'],
+            [['flat', 'id_region', 'id_city'], 'integer'],
             [['name', 'last_name', 'city', 'house'], 'string', 'max' => 255],
         ];
     }
@@ -53,13 +55,15 @@ class ClientModel extends \yii\db\ActiveRecord
             'city' => Yii::t('app', 'City'),
             'house' => Yii::t('app', 'House'),
             'flat' => Yii::t('app', 'Flat'),
+            'id_region' => Yii::t('app', 'Id Region'),
+            'id_city' => Yii::t('app', 'Id City'),
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getOrders()
+    public function getClientsOrders()
     {
         return $this->hasMany(OrderModel::className(), ['id_client' => 'id_client']);
     }

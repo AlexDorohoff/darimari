@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\bootstrap\Modal;
+
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\OrderModel */
@@ -12,7 +14,19 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id_client')->textInput() ?>
+
+
+    <?php if (empty($id_client)) { ?>
+        <?= $form->field($model, 'id_client')->label('Клиент')->dropDownList($model->getClientsList(), [
+            'id_client' => 'id_client',
+            'prompt' => '-Выберите клиента-',
+        ]); ?>
+        <div class="panel panel-default">
+            <p class="list-group-item"><?= Html::a('Добавить клиента', ['client/create', ['class' => 'profile-link']]) ?></a></p>
+        </div>
+    <?php } else { ?>
+        <?= $form->field($model, 'id_client')->label(false)->hiddenInput(['value' => $id_client]); ?>
+    <?php } ?>
 
     <?= $form->field($model, 'date')->textInput() ?>
 
@@ -20,6 +34,12 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'status')->textInput() ?>
 
+    <?= $form->field($productXOrder, 'id_product')->label('Продукт')->dropDownList($productXOrder->getProductsList(), [
+        'id_product' => 'id_product',
+        'prompt' => '-Выберите продукт-',
+    ]); ?>
+
+    <?= $form->field($productXOrder, 'amount')->textInput() ?>
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

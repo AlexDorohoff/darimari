@@ -2,8 +2,12 @@
 
 namespace frontend\controllers;
 
+use common\models\AddressModel;
+use frontend\services\AddressService;
+use frontend\services\OrderService;
 use Yii;
-use frontend\models\ClientModel;
+use common\models\ClientModel;
+use yii\base\ViewRenderer;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -52,8 +56,12 @@ class ClientController extends Controller
      */
     public function actionView($id)
     {
+        $orders = OrderService::getAllClientOrders($id);
+        $address = AddressService::getAllClinetsAdresses($id);
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'orders' => $orders,
+            'addresses' => $address,
         ]);
     }
 
@@ -65,13 +73,18 @@ class ClientController extends Controller
     public function actionCreate()
     {
         $model = new ClientModel();
-
+        $address = new AddressModel();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_client]);
+            $address->load(Yii::$app->request->post());
+            $address->id_client = $model->id_client;
+            if ($address->save()) {
+                return $this->redirect(['view', 'id' => $model->id_client]);
+            }
         }
 
         return $this->render('create', [
             'model' => $model,
+            'address' => $address,
         ]);
     }
 
@@ -84,14 +97,15 @@ class ClientController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
-
+        $model = ClientModel::findOne($id);
+        $addresses = AddressService::getAllClinetsAdresses($id);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
             return $this->redirect(['view', 'id' => $model->id_client]);
         }
-
         return $this->render('update', [
             'model' => $model,
+            'address' => $addresses,
         ]);
     }
 

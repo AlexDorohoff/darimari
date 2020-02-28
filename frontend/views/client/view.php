@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model frontend\models\ClientModel */
+/* @var $model common\models\ClientModel */
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Client Models', 'url' => ['index']];
@@ -29,14 +29,30 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id_client',
             'name',
             'last_name',
-            'address:ntext',
-            'city',
-            'house',
-            'flat',
         ],
     ]) ?>
-
+    <div class="btn btn-default">
+        <?= Html::a('Добавить адресс', ['address/create', 'id_client' => $model['id_client']], ['class' => 'profile-link']) ?>
+    </div>
+    <?php foreach ($addresses as $address) { ?>
+        <div class="panel panel-default">
+            <p class="list-group-item"><?= Html::a($address->city->name, ['address/view', 'id' => $address['id_address']], ['class' => 'profile-link']) ?></a></p>
+            <p class="list-group-item"><?= Html::a($address->street, ['address/view', 'id' => $address['id_address']], ['class' => 'profile-link']) ?></p>
+            <p class="list-group-item"><?= Html::a($address->house, ['address/view', 'id' => $address['id_address']], ['class' => 'profile-link']) ?></p>
+        </div>
+    <?php } ?>
 </div>
+
+<div class="btn btn-default"><?= Html::a('Добавить заказ', ['order/create', 'id_client' => $model['id_client']], ['class' => 'profile-link']) ?></div>
+
+
+<?php foreach ($orders as $order) {
+    ?>
+    <div class="panel panel-default">
+        <p class="list-group-item"><?= $order['comment'] ?></p>
+        <p><?= Html::a($order['date'], ['order/view', 'id' => $order['id_order']], ['class' => 'profile-link']) ?></p>
+    </div>
+
+<?php } ?>

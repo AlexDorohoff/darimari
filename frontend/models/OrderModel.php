@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "order".
@@ -13,8 +14,8 @@ use Yii;
  * @property string|null $comment
  * @property int $status
  *
- * @property Client $client
- * @property ProductXOrder[] $productXOrders
+ * @property ClientModel $client
+ * @property ProductXOrderModel[] $productXOrders
  */
 class OrderModel extends \yii\db\ActiveRecord
 {
@@ -58,14 +59,14 @@ class OrderModel extends \yii\db\ActiveRecord
      */
     public function getClient()
     {
-        return $this->hasOne(Client::className(), ['id_client' => 'id_client']);
+        return $this->hasOne(ClientModel::className(), ['id_client' => 'id_client']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getProductXOrders()
+    public static function getClientsList()
     {
-        return $this->hasMany(ProductXOrder::className(), ['id_order' => 'id_order']);
+        $cities = ClientModel::find()->all();
+        $items = ArrayHelper::map($cities, 'id_client', 'name');
+        return $items;
     }
+
 }

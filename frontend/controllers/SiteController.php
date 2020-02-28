@@ -1,4 +1,5 @@
 <?php
+
 namespace frontend\controllers;
 
 use frontend\models\ResendVerificationEmailForm;
@@ -14,6 +15,8 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use frontend\services\ClientService;
+use frontend\services\OrderService;
 
 /**
  * Site controller
@@ -74,7 +77,12 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $clients = ClientService::getAllClients();
+        $orders = OrderService::getAllOrders();
+        return $this->render('index', [
+            'clients' => $clients,
+            'orders' => $orders,
+        ]);
     }
 
     /**
@@ -216,8 +224,8 @@ class SiteController extends Controller
      * Verify email address
      *
      * @param string $token
-     * @throws BadRequestHttpException
      * @return yii\web\Response
+     * @throws BadRequestHttpException
      */
     public function actionVerifyEmail($token)
     {

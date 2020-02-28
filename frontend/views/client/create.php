@@ -3,7 +3,8 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model frontend\models\ClientModel */
+/* @var $model common\models\ClientModel */
+/* @var $address common\models\AddressModel */
 
 $this->title = 'Create Client Model';
 $this->params['breadcrumbs'][] = ['label' => 'Client Models', 'url' => ['index']];
@@ -15,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'address' => $address,
     ]) ?>
 
 </div>
