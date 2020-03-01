@@ -71,18 +71,18 @@ class OrderController extends Controller
      */
     public function actionCreate($id_client = null)
     {
-        $model = new OrderModel();
+        $order = new OrderModel();
         $productXOrder = new ProductXOrderModel();
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($order->load(Yii::$app->request->post()) && $order->save()) {
             $productXOrder->load(Yii::$app->request->post());
-            $productXOrder->id_order = $model->id_order;
+            $productXOrder->id_order = $order->id_order;
             if ($productXOrder->save()) {
-                return $this->redirect(['view', 'id' => $model->id_order]);
+                return $this->redirect(['view', 'id' => $order->id_order]);
             }
         }
 
         return $this->render('create', [
-            'model' => $model,
+            'order' => $order,
             'id_client' => $id_client,
             'productXOrder' => $productXOrder,
         ]);
@@ -97,14 +97,14 @@ class OrderController extends Controller
      */
     public function actionUpdate($id, $id_client = null)
     {
-        $model = $this->findModel($id);
+        $order = $this->findModel($id);
         $productXOrder = ProductXOrderModel::getProductsByOrder($id);
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_order]);
+        if ($order->load(Yii::$app->request->post()) && $order->save()) {
+            return $this->redirect(['view', 'id' => $order->id_order]);
         }
 
         return $this->render('update', [
-            'model' => $model,
+            'order' => $order,
             'id_client' => $id_client,
             'productXOrder' => $productXOrder,
         ]);

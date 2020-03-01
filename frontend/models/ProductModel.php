@@ -13,7 +13,7 @@ use yii\data\ActiveDataProvider;
  * @property string|null $name
  * @property string|null $comment
  *
- * @property ProductXOrder[] $productXOrders
+ * @property ProductXOrderModel[] $productXOrders
  */
 class ProductModel extends \yii\db\ActiveRecord
 {

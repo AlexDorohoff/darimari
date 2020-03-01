@@ -6,7 +6,7 @@ use yii\bootstrap\Modal;
 
 
 /* @var $this yii\web\View */
-/* @var $model frontend\models\OrderModel */
+/* @var $order frontend\models\OrderModel */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -17,7 +17,7 @@ use yii\bootstrap\Modal;
 
 
     <?php if (empty($id_client)) { ?>
-        <?= $form->field($model, 'id_client')->label('Клиент')->dropDownList($model->getClientsList(), [
+        <?= $form->field($order, 'id_client')->label('Клиент')->dropDownList($order->getClientsList(), [
             'id_client' => 'id_client',
             'prompt' => '-Выберите клиента-',
         ]); ?>
@@ -25,14 +25,14 @@ use yii\bootstrap\Modal;
             <p class="list-group-item"><?= Html::a('Добавить клиента', ['client/create', ['class' => 'profile-link']]) ?></a></p>
         </div>
     <?php } else { ?>
-        <?= $form->field($model, 'id_client')->label(false)->hiddenInput(['value' => $id_client]); ?>
+        <?= $form->field($order, 'id_client')->label(false)->hiddenInput(['value' => $id_client]); ?>
     <?php } ?>
 
-    <?= $form->field($model, 'date')->textInput() ?>
+    <?= $form->field($order, 'date')->textInput() ?>
 
-    <?= $form->field($model, 'comment')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($order, 'comment')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'status')->textInput() ?>
+    <?= $form->field($order, 'status')->textInput() ?>
 
     <?= $form->field($productXOrder, 'id_product')->label('Продукт')->dropDownList($productXOrder->getProductsList(), [
         'id_product' => 'id_product',

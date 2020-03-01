@@ -8,7 +8,7 @@ use yii\helpers\ArrayHelper;
 /**
  * This is the model class for table "product_x_order".
  *
- * @property int $id_product_x_order
+ * @property int $id_productXOrder
  * @property int|null $id_product
  * @property int|null $id_order
  *
@@ -74,15 +74,15 @@ class ProductXOrderModel extends \yii\db\ActiveRecord
 
     public static function getProductsByOrder($id_order)
     {
-        $order_x_productArr = ProductXOrderModel::find()->where(['id_order' => $id_order])->all();
+        $productXOrderArr = ProductXOrderModel::find()->where(['id_order' => $id_order])->all();
         $product = new ProductModel();
         $products = [];
-        foreach ($order_x_productArr as $product_x_order) {
+        foreach ($productXOrderArr as $productXOrder) {
             $prod = $product::find()
-                ->where(['product.id_product' => $product_x_order->id_product])->one();
+                ->where(['product.id_product' => $productXOrder->id_product])->one();
             if (!empty($prod)) {
                 $form = new OrderForm();
-                $form->setForm($prod, $product_x_order);
+                $form->setForm($prod, $productXOrder);
                 array_push($products, $form);
             }
         }

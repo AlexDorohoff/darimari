@@ -64,14 +64,14 @@ class ProductXOrderController extends Controller
      */
     public function actionCreate($id_order = null)
     {
-        $model = new ProductXOrderModel();
+        $productXOrder = new ProductXOrderModel();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_product_x_order]);
+        if ($productXOrder->load(Yii::$app->request->post()) && $productXOrder->save()) {
+            return $this->redirect(['view', 'id' => $productXOrder->id_product_x_order]);
         }
 
         return $this->render('create', [
-            'model' => $model,
+            'productXOrder' => $productXOrder,
             'id_order' => $id_order,
         ]);
     }
@@ -85,14 +85,14 @@ class ProductXOrderController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $productXOrder = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_product_x_order]);
+        if ($productXOrder->load(Yii::$app->request->post()) && $productXOrder->save()) {
+            return $this->redirect(['view', 'id' => $productXOrder->id_product_x_order]);
         }
 
         return $this->render('update', [
-            'model' => $model,
+            'productXOrder' => $productXOrder,
         ]);
     }
 

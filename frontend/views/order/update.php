@@ -4,11 +4,12 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model frontend\models\OrderModel */
+/* @var $order frontend\models\OrderModel */
+/* @var $productXOrder frontend\models\ProductXOrderModel */
 
-$this->title = 'Update Order Model: ' . $model->id_order;
+$this->title = 'Update Order Model: ' . $order->id_order;
 $this->params['breadcrumbs'][] = ['label' => 'Order Models', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id_order, 'url' => ['view', 'id' => $model->id_order]];
+$this->params['breadcrumbs'][] = ['label' => $order->id_order, 'url' => ['view', 'id' => $order->id_order]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="order-model-update">
@@ -16,7 +17,7 @@ $this->params['breadcrumbs'][] = 'Update';
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id_order], [
+        <?= Html::a('Delete', ['delete', 'id' => $order->id_order], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -26,10 +27,10 @@ $this->params['breadcrumbs'][] = 'Update';
     </p>
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id_client')->label(false)->hiddenInput(['value' => $id_client]); ?>
+    <?= $form->field($order, 'id_client')->label(false)->hiddenInput(['value' => $id_client]); ?>
 
     <?php if (empty($id_client)) { ?>
-        <?= $form->field($model, 'id_client')->label('Клиент')->dropDownList($model->getClientsList(), [
+        <?= $form->field($order, 'id_client')->label('Клиент')->dropDownList($order->getClientsList(), [
             'id_client' => 'id_client',
             'prompt' => '-Выберите клиента-',
         ]); ?>
@@ -38,27 +39,27 @@ $this->params['breadcrumbs'][] = 'Update';
         </div>
     <?php } ?>
 
-    <?= $form->field($model, 'date')->textInput() ?>
+    <?= $form->field($order, 'date')->textInput() ?>
 
-    <?= $form->field($model, 'comment')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($order, 'comment')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'status')->textInput() ?>
+    <?= $form->field($order, 'status')->textInput() ?>
 
-    <div class="btn btn-default"><?= Html::a('Добавить продукт', ['product-x-order/create', 'id_order' => $model['id_order']], ['class' => 'profile-link']) ?></div>
+    <div class="btn btn-default"><?= Html::a('Добавить продукт', ['product-x-order/create', 'id_order' => $order['id_order']], ['class' => 'profile-link']) ?></div>
 
     <?php
     foreach ($productXOrder as $product) { ?>
         <div class='panel'>
             <?= $product->product->name; ?>
-            <?= $product->product_x_order->amount; ?>
-            <?= Html::a('Delete', ['product-x-order/delete', 'id' => $product->product_x_order->id_product_x_order], [
+            <?= $product->productXOrder->amount; ?>
+            <?= Html::a('Delete', ['product-x-order/delete', 'id' => $product->productXOrder->id_product_x_order], [
                 'class' => 'btn btn-danger',
                 'data' => [
                     'confirm' => 'Are you sure you want to delete this item?',
                     'method' => 'post',
                 ],
             ]) ?>
-            <?= Html::a('Update', ['update', 'id' => $product->product_x_order->id_product_x_order], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('Update', ['product-x-order/update', 'id' => $product->productXOrder->id_product_x_order], ['class' => 'btn btn-primary']) ?>
         </div>
     <?php }
     ?>

@@ -42,15 +42,15 @@ if (!empty($products)) {
         ?>
         <div class='panel'>
             <?= $product->product->name; ?>
-            <?= $product->product_x_order->amount; ?>
-            <?= Html::a('Delete', ['product-x-order/delete', 'id' => $product->product_x_order->id_product_x_order], [
+            <?= $product->productXOrder->amount; ?>
+            <?= Html::a('Delete', ['product-x-order/delete', 'id' => $product->productXOrder->id_product], [
                 'class' => 'btn btn-danger',
                 'data' => [
                     'confirm' => 'Are you sure you want to delete this item?',
                     'method' => 'post',
                 ],
             ]) ?>
-            <?= Html::a('Update', ['update', 'id' => $product->product_x_order->id_product_x_order], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('Update', ['product-x-order/update', 'id' => $product->productXOrder->id_product_x_order], ['class' => 'btn btn-primary']) ?>
         </div>
         <?php
     }

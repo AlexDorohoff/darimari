@@ -34,6 +34,7 @@ class OrderModel extends \yii\db\ActiveRecord
     {
         return [
             [['id_client', 'status'], 'integer'],
+            [['status'], 'required'],
             [['date'], 'safe'],
             [['comment'], 'string', 'max' => 255],
             [['id_client'], 'exist', 'skipOnError' => true, 'targetClass' => ClientModel::className(), 'targetAttribute' => ['id_client' => 'id_client']],

@@ -9,10 +9,10 @@ use yii\base\Model;
 class OrderForm extends Model
 {
     public $product;
-    public $product_x_order;
+    public $productXOrder;
 
-    public function setForm($product, $product_x_order){
+    public function setForm($product, $productXOrder){
         $this->product = $product;
-        $this->product_x_order =  $product_x_order;
+        $this->productXOrder =  $productXOrder;
     }
 }

@@ -3,11 +3,11 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model frontend\models\ProductXOrderModel */
+/* @var $productXOrder frontend\models\ProductXOrderModel */
 
-$this->title = 'Update Product X Order Model: ' . $model->id_product_x_order;
+$this->title = 'Update Product X Order Model: ' . $productXOrder->id_product_x_order;
 $this->params['breadcrumbs'][] = ['label' => 'Product X Order Models', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id_product_x_order, 'url' => ['view', 'id' => $model->id_product_x_order]];
+$this->params['breadcrumbs'][] = ['label' => $productXOrder->id_product_x_order, 'url' => ['view', 'id' => $productXOrder->id_product_x_order]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="product-xorder-model-update">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = 'Update';
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
-        'model' => $model,
+        'productXOrder' => $productXOrder,
     ]) ?>
 
 </div>
