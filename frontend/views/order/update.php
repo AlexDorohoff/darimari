@@ -44,6 +44,8 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $form->field($model, 'status')->textInput() ?>
 
+    <div class="btn btn-default"><?= Html::a('Добавить продукт', ['product-x-order/create', 'id_order' => $model['id_order']], ['class' => 'profile-link']) ?></div>
+
     <?php
     foreach ($productXOrder as $product) { ?>
         <div class='panel'>

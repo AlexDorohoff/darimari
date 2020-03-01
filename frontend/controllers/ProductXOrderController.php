@@ -62,7 +62,7 @@ class ProductXOrderController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id_order = null)
     {
         $model = new ProductXOrderModel();
 
@@ -72,6 +72,7 @@ class ProductXOrderController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'id_order' => $id_order,
         ]);
     }
 

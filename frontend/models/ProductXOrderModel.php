@@ -65,7 +65,7 @@ class ProductXOrderModel extends \yii\db\ActiveRecord
         return $this->hasOne(ProductModel::className(), ['id_product' => 'id_product']);
     }
 
-    public function getProductsList()
+    public static function getProductsList()
     {
         $cities = ProductModel::find()->all();
         $items = ArrayHelper::map($cities, 'id_product', 'name');
@@ -74,23 +74,18 @@ class ProductXOrderModel extends \yii\db\ActiveRecord
 
     public static function getProductsByOrder($id_order)
     {
-        $order_x_product = ProductXOrderModel::find()->where(['id_order' => $id_order])->all();
+        $order_x_productArr = ProductXOrderModel::find()->where(['id_order' => $id_order])->all();
         $product = new ProductModel();
         $products = [];
-        $set = [];
-        foreach ($order_x_product as $product_id) {
+        foreach ($order_x_productArr as $product_x_order) {
             $prod = $product::find()
-                ->where(['product.id_product' => $product_id->id_product])->one();
-            $form = new OrderForm();
-            $form->setForm($prod, $product_id);
-            array_push($products, $form);
+                ->where(['product.id_product' => $product_x_order->id_product])->one();
+            if (!empty($prod)) {
+                $form = new OrderForm();
+                $form->setForm($prod, $product_x_order);
+                array_push($products, $form);
+            }
         }
-
-        /* $a = ProductXOrderModel::find()
-             ->leftJoin('product', 'product.id_product = product_x_order.id_product')
-             ->leftJoin('order','order.id_order = product_x_order.id_order')
-             ->where(['product_x_order.id_order' => $id_order])->all();
- */
         return $products;
     }
 }

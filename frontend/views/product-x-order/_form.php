@@ -12,9 +12,14 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id_product')->textInput() ?>
+    <?= $form->field($model, 'id_order')->label(false)->hiddenInput(['value' => $id_order]); ?>
 
-    <?= $form->field($model, 'id_order')->textInput() ?>
+    <?= $form->field($model, 'id_product')->label('Клиент')->dropDownList($model::getProductsList(), [
+        'id_product' => 'id_product',
+        'prompt' => '-Выберите продукт-',
+    ]); ?>
+
+    <?= $form->field($model, 'amount')->label('Количество'); ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

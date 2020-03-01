@@ -34,23 +34,27 @@ $this->params['breadcrumbs'][] = $this->title;
     ],
 ]) ?>
 
+<div class="btn btn-default"><?= Html::a('Добавить продукт', ['product-x-order/create', 'id_order' => $model['id_order']], ['class' => 'profile-link']) ?></div>
+
 <?php
-foreach ($products as $product) {
-    ?>
-    <div class='panel'>
-        <?= $product->product->name; ?>
-        <?= $product->product_x_order->amount; ?>
-        <?= Html::a('Delete', ['product-x-order/delete', 'id' => $product->product_x_order->id_product_x_order], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-        <?= Html::a('Update', ['update', 'id' => $product->product_x_order->id_product_x_order], ['class' => 'btn btn-primary']) ?>
-    </div>
-    <?php
-}
-?>
+if (!empty($products)) {
+    foreach ($products as $product) {
+        ?>
+        <div class='panel'>
+            <?= $product->product->name; ?>
+            <?= $product->product_x_order->amount; ?>
+            <?= Html::a('Delete', ['product-x-order/delete', 'id' => $product->product_x_order->id_product_x_order], [
+                'class' => 'btn btn-danger',
+                'data' => [
+                    'confirm' => 'Are you sure you want to delete this item?',
+                    'method' => 'post',
+                ],
+            ]) ?>
+            <?= Html::a('Update', ['update', 'id' => $product->product_x_order->id_product_x_order], ['class' => 'btn btn-primary']) ?>
+        </div>
+        <?php
+    }
+} ?>
+
 
 
